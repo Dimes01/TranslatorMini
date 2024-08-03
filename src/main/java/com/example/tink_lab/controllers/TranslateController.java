@@ -51,7 +51,7 @@ public class TranslateController {
             translatedText.append(" ");
         }
 
-        var result = translatedText.toString();
+        var result = translatedText.toString().trim();
         requestService.SaveRequest(request.getRemoteAddr(), requestBody.GetText(), result);
 
         return ResponseEntity.ok(result);
