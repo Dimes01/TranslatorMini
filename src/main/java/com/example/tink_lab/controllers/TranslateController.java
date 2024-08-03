@@ -35,7 +35,8 @@ public class TranslateController {
         var words = requestBody.GetText().split(" ");
         var futures = new ArrayDeque<Future<String>>();
         for (var word : words) {
-            futures.add(executorService.submit(() -> translationService.Translate(word, requestBody.GetSourceLanguage(), requestBody.GetTargetLanguage())));
+            var future = executorService.submit(() -> translationService.Translate(word, requestBody.GetSourceLanguage(), requestBody.GetTargetLanguage()));
+            futures.add(future);
         }
 
         var translatedText = new StringBuilder();
@@ -44,8 +45,7 @@ public class TranslateController {
             try {
                 str = future.get();
             } catch (InterruptedException | ExecutionException e) {
-                var cause = e.getCause();
-                throw new RuntimeException(e);
+                System.out.println(e.getCause().toString());
             }
             translatedText.append(str);
             translatedText.append(" ");

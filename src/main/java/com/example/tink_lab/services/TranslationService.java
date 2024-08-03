@@ -22,16 +22,7 @@ public class TranslationService {
 
     // TODO: написать тест
     public String Translate(String text, String sourceLang, String targetLang) {
-        String encodedText, encodedSourceLang, encodedTargetLang;
-        try {
-            encodedText = URLEncoder.encode(text, "UTF-8");
-            encodedSourceLang = URLEncoder.encode(sourceLang, "UTF-8");
-            encodedTargetLang = URLEncoder.encode(targetLang, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
-
-        String url = String.format("%s?sl=%s&dl=%s&text=%s&", trConf.getUrl(), encodedSourceLang, encodedTargetLang, encodedText);
+        String url = String.format("%s?sl=%s&dl=%s&text=%s&", trConf.getUrl(), sourceLang, targetLang, text);
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
         return GetTranslatedText(response.getBody());
     }
