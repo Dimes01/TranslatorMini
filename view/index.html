@@ -2,16 +2,40 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Translator Mini</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Translator</title>
+    <link type="text/css" rel="stylesheet" href="main.css">
 </head>
 <body>
-    <div>
-        <form>
-            <input type="text" value="Исходный язык" name="sourceLanguage">
-            <input type="text" value="Язык для перевода" name="targetLanguage">
-            <input type="text" value="Текст" name="text">
-            <input type="submit" value="Перевести">
-        </form>
-    </div>
+
+<h1>Text Translator</h1>
+
+<form id="translateForm">
+    <label for="text">Text to Translate:</label>
+    <textarea id="text" name="text" rows="4" cols="50"></textarea>
+
+    <label for="sourceLang">Source Language:</label>
+    <select id="sourceLang" name="sourceLang">
+        <option value="en">English</option>
+        <option value="ru">Russian</option>
+        <option value="es">Spanish</option>
+        <option value="fr">French</option>
+    </select>
+
+    <label for="targetLang">Target Language:</label>
+    <select id="targetLang" name="targetLang">
+        <option value="es">Spanish</option>
+        <option value="ru">Russian</option>
+        <option value="en">English</option>
+        <option value="fr">French</option>
+    </select>
+
+    <button type="button" onclick="translateText()">Translate</button>
+</form>
+
+<div id="result"></div>
+
+<script src="main.js"></script>
+
 </body>
 </html>

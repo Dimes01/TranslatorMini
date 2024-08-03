@@ -11,14 +11,13 @@ import java.sql.SQLException;
 
 @Repository
 public class RequestRepository {
-    private Connection conn;
     private PreparedStatement addStatement;
 
     public RequestRepository() {
         try {
             DatabaseConfig dbConf = new DatabaseConfig();
             Class.forName(dbConf.GetDriverClassName()).getDeclaredConstructor().newInstance();
-            conn = DriverManager.getConnection(dbConf.GetURL(), dbConf.GetUser(), dbConf.GetPassword());
+            Connection conn = DriverManager.getConnection(dbConf.GetURL(), dbConf.GetUser(), dbConf.GetPassword());
             var createStatement = conn.createStatement();
             createStatement.execute("CREATE TABLE requests (" +
                     "id INT PRIMARY KEY AUTO_INCREMENT," +
