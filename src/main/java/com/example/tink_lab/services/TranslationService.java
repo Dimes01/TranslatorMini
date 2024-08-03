@@ -28,7 +28,7 @@ public class TranslationService {
     }
 
     // TODO: написать тест
-    private String GetTranslatedText(String responseBody) {
+    public String GetTranslatedText(String responseBody) {
         ObjectMapper mapper = new ObjectMapper();
         String text = "";
         try {
