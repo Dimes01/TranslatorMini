@@ -8,7 +8,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayDeque;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -51,7 +50,7 @@ public class TranslateController {
         }
 
         var response = new RequestDTO(requestBody.GetText(), translatedText.toString().trim());
-        requestService.SaveRequest(request.getRemoteAddr(), response.getSourceText(), response.getTranslatedText());
+        requestService.SaveRequest(request.getRemoteAddr(), response.sourceText(), response.translatedText());
 
         return ResponseEntity.ok(response);
     }
