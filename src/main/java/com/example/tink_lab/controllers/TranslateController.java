@@ -36,6 +36,11 @@ public class TranslateController {
      */
     private final ExecutorService executorService;
 
+    /**
+     * Инициализирует обязательные для работы контроллера сервисы
+     * @param translationService Сервис для перевода через внешний сервис
+     * @param requestService Сервис для логирования информации о запросе
+     */
     public TranslateController(TranslationService translationService, RequestService requestService) {
         this.translationService = translationService;
         this.requestService = requestService;
