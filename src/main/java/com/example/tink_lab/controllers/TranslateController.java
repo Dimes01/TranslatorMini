@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
 import java.util.ArrayDeque;
 import java.util.LinkedList;
 import java.util.concurrent.ExecutionException;
@@ -79,7 +80,12 @@ public class TranslateController {
         }
 
         var response = new RequestDTO(requestBody.GetText(), translatedText.toString().trim());
-        requestService.SaveRequest(request.getRemoteAddr(), response.sourceText(), response.translatedText());
+        try {
+            requestService.SaveRequest(request.getRemoteAddr(), response.sourceText(), response.translatedText());
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return (ResponseEntity<RequestDTO>) ResponseEntity.internalServerError();
+        }
 
         return ResponseEntity.ok(response);
     }
@@ -89,7 +95,13 @@ public class TranslateController {
      */
     @GetMapping("/get")
     public ResponseEntity<LinkedList<RequestLog>> GetHistory() {
-        var list = requestService.GetAllRequests();
+        LinkedList<RequestLog> list = null;
+        try {
+            list = requestService.GetAllRequests();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return (ResponseEntity<LinkedList<RequestLog>>) ResponseEntity.internalServerError();
+        }
         return ResponseEntity.ok(list);
     }
 }

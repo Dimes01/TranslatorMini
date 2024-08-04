@@ -4,6 +4,7 @@ import com.example.tink_lab.models.RequestLog;
 import com.example.tink_lab.repositories.RequestRepository;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.LinkedList;
 
 /**
@@ -35,7 +36,7 @@ public class RequestService {
      * @param sourceText Текст на исходном языке
      * @param translatedText Переведенный текст
      */
-    public void SaveRequest(String ip, String sourceText, String translatedText) {
+    public void SaveRequest(String ip, String sourceText, String translatedText) throws SQLException {
         RequestLog log = new RequestLog(sourceText, translatedText, ip);
         repository.SaveRequest(log);
     }
@@ -43,7 +44,7 @@ public class RequestService {
     /**
      * @return Список всех логов запросов из репозитория
      */
-    public LinkedList<RequestLog> GetAllRequests() {
+    public LinkedList<RequestLog> GetAllRequests() throws SQLException {
         return repository.GetAllRequests();
     }
 }

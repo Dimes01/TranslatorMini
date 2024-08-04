@@ -37,7 +37,6 @@ public class RequestRepository {
      * Конструктор при создании объекта также создает подключение и стандартную таблицу
      */
     public RequestRepository() {
-        //TODO: Исправить, чтобы при ошибке подключения объект репозитория не создавался
         try {
             DatabaseConfig dbConf = new DatabaseConfig();
             Class.forName(dbConf.driverClassName).getDeclaredConstructor().newInstance();
@@ -52,8 +51,8 @@ public class RequestRepository {
             selectAllStatement = conn.createStatement();
         }
         catch(Exception ex) {
-            System.out.println("Connection failed...");
             System.out.println(ex.getMessage());
+            throw new RuntimeException();
         }
     }
 
@@ -61,16 +60,11 @@ public class RequestRepository {
      * <b>Создает в БД запись о запросе</b>
      * @param requestLog Лог запроса на перевод
      */
-    public void SaveRequest(RequestLog requestLog) {
-        // TODO: исправить так, чтобы при неудачной попытке добавления выбрасывало ошибку
-        try {
-            addStatement.setString(0, requestLog.GetIP());
-            addStatement.setString(1, requestLog.GetSourceText());
-            addStatement.setString(2, requestLog.GetTranslatedText());
-            addStatement.execute();
-        } catch (SQLException e) {
-            System.out.println("Save request failed...");
-        }
+    public void SaveRequest(RequestLog requestLog) throws SQLException {
+        addStatement.setString(1, requestLog.GetIP());
+        addStatement.setString(2, requestLog.GetSourceText());
+        addStatement.setString(3, requestLog.GetTranslatedText());
+        addStatement.execute();
     }
 
     /**
@@ -78,18 +72,14 @@ public class RequestRepository {
      * <p>NOTE! Пустой список возвращается либо при отсутствии данных, либо при ошибке</p>
      * @return Список всех запросов.
      */
-    public LinkedList<RequestLog> GetAllRequests() {
+    public LinkedList<RequestLog> GetAllRequests() throws SQLException {
         var list = new LinkedList<RequestLog>();
-        try {
-            var resultSet = selectAllStatement.executeQuery("SELECT * FROM requests");
-            while (resultSet.next()) {
-                var ip = resultSet.getString(1);
-                var sourceText = resultSet.getString(2);
-                var translatedText = resultSet.getString(3);
-                list.add(new RequestLog(sourceText, translatedText, ip));
-            }
-        } catch (SQLException e) {
-            System.out.println("Select requests failed...");
+        var resultSet = selectAllStatement.executeQuery("SELECT * FROM requests");
+        while (resultSet.next()) {
+            var ip = resultSet.getString(1);
+            var sourceText = resultSet.getString(2);
+            var translatedText = resultSet.getString(3);
+            list.add(new RequestLog(sourceText, translatedText, ip));
         }
         return list;
     }
