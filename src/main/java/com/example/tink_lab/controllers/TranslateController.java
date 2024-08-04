@@ -84,6 +84,9 @@ public class TranslateController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * @return Список всех логов запросов
+     */
     @GetMapping("/get")
     public ResponseEntity<LinkedList<RequestLog>> GetHistory() {
         var list = requestService.GetAllRequests();
