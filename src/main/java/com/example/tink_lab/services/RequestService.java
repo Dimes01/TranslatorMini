@@ -4,6 +4,8 @@ import com.example.tink_lab.models.RequestLog;
 import com.example.tink_lab.repositories.RequestRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
+
 /**
  * <b>Используется для взаимодействия с репозиторием</b>
  * <p>Имеет следующий функционал:</p>
@@ -36,5 +38,12 @@ public class RequestService {
     public void SaveRequest(String ip, String sourceText, String translatedText) {
         RequestLog log = new RequestLog(sourceText, translatedText, ip);
         repository.SaveRequest(log);
+    }
+
+    /**
+     * @return Список всех логов запросов из репозитория
+     */
+    public LinkedList<RequestLog> GetAllRequests() {
+        return repository.GetAllRequests();
     }
 }
