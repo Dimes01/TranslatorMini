@@ -8,6 +8,11 @@ package com.example.tink_lab.models;
  * <li>TargetLanguage (язык для перевода)</li>
  */
 public class RequestTranslate {
+    /**
+     * @param text Текст на исходном языке
+     * @param sourceLanguage Исходный язык
+     * @param targetLanguage Язык для перевода
+     */
     public RequestTranslate(String text, String sourceLanguage, String targetLanguage) {
         this.text = text;
         this.sourceLanguage = sourceLanguage;
@@ -17,7 +22,18 @@ public class RequestTranslate {
     private final String sourceLanguage;
     private final String targetLanguage;
 
+    /**
+     * @return Текст на исходном языке
+     */
     public String GetText() { return text; }
+
+    /**
+     * @return Исходный язык
+     */
     public String GetSourceLanguage() { return sourceLanguage; }
+
+    /**
+     * @return Язык для перевода
+     */
     public String GetTargetLanguage() { return targetLanguage; }
 }
