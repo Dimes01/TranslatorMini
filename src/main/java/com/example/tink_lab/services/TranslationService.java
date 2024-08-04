@@ -8,26 +8,21 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-
 @Service
 public class TranslationService {
-    private TranslationConfig trConf = new TranslationConfig();
+    private final TranslationConfig trConf = new TranslationConfig();
     private final RestTemplate restTemplate;
 
     public TranslationService(RestTemplateBuilder restTemplateBuilder) {
         this.restTemplate = restTemplateBuilder.build();
     }
 
-    // TODO: написать тест
     public String Translate(String text, String sourceLang, String targetLang) {
-        String url = String.format("%s?sl=%s&dl=%s&text=%s&", trConf.getUrl(), sourceLang, targetLang, text);
+        String url = String.format("%s?sl=%s&dl=%s&text=%s&", trConf.url, sourceLang, targetLang, text);
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
         return GetTranslatedText(response.getBody());
     }
 
-    // TODO: написать тест
     public String GetTranslatedText(String responseBody) {
         ObjectMapper mapper = new ObjectMapper();
         String text = "";

@@ -16,8 +16,8 @@ public class RequestRepository {
     public RequestRepository() {
         try {
             DatabaseConfig dbConf = new DatabaseConfig();
-            Class.forName(dbConf.GetDriverClassName()).getDeclaredConstructor().newInstance();
-            Connection conn = DriverManager.getConnection(dbConf.GetURL(), dbConf.GetUser(), dbConf.GetPassword());
+            Class.forName(dbConf.driverClassName).getDeclaredConstructor().newInstance();
+            Connection conn = DriverManager.getConnection(dbConf.url, dbConf.user, dbConf.password);
             var createStatement = conn.createStatement();
             createStatement.execute("CREATE TABLE requests (" +
                     "id INT PRIMARY KEY AUTO_INCREMENT," +
@@ -27,13 +27,11 @@ public class RequestRepository {
             addStatement = conn.prepareStatement("INSERT INTO requests (ip_address, source_text, translated_text) VALUES (?, ?, ?)");
         }
         catch(Exception ex) {
-            // TODO: Добавить нормальное логирование
             System.out.println("Connection failed...");
             System.out.println(ex.getMessage());
         }
     }
 
-    // TODO: написать тест
     public void SaveRequest(RequestLog requestLog) {
         try {
             addStatement.setString(0, requestLog.GetIP());

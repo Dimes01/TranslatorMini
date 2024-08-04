@@ -10,7 +10,7 @@ import java.sql.SQLException;
 public class RequestService {
     private final RequestRepository repository;
 
-    public RequestService(RequestRepository repository) throws SQLException {
+    public RequestService(RequestRepository repository) {
         this.repository = repository;
     }
 
