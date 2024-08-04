@@ -9,10 +9,28 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+/**
+ * <b>Используется для обращения к одной конкретной базе данных</b>
+ * <p>Класс имеет следующую функциональность:</p>
+ * <ul>
+ *     <li>Создание подключения к БД</li>
+ *     <li>Создание таблицы по-умолчанию</li>
+ *     <li>Создание следующих подготовленных выражений:<ul>
+ *         <li>Добавление записи о запросе</li>
+ *     </ul></li>
+ * </ul>
+ * <p>Все перечисленные функции имеют перехват ошибок с выводом информации</p>
+ */
 @Repository
 public class RequestRepository {
+    /**
+     * Подготовленное выражение для создания в БД записи о запросе
+     */
     private PreparedStatement addStatement;
 
+    /**
+     * Конструктор при создании объекта также создает подключение и стандартную таблицу
+     */
     public RequestRepository() {
         try {
             DatabaseConfig dbConf = new DatabaseConfig();
@@ -32,6 +50,10 @@ public class RequestRepository {
         }
     }
 
+    /**
+     * <b>Создает в БД запись о запросе</b>
+     * @param requestLog Лог запроса на перевод
+     */
     public void SaveRequest(RequestLog requestLog) {
         try {
             addStatement.setString(0, requestLog.GetIP());
