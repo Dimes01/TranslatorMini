@@ -21,7 +21,8 @@ async function translateText() {
         const resultDiv = document.getElementById('result');
 
         if (response.ok) {
-            const translatedText = await response.text();
+            const jsonResponse = await response.json();
+            const translatedText = jsonResponse.translatedText;
             resultDiv.innerHTML = `<strong>Translated Text:</strong> ${translatedText}`;
             resultDiv.style.color = 'black';
         } else {
