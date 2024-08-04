@@ -13,6 +13,7 @@ import java.util.LinkedList;
  * <ul>
  *     <li>Создание лога запроса</li>
  *     <li>Отправка лога в репозиторий</li>
+ *     <li>Получение всех логов из репозитория</li>
  * </ul>
  */
 @Service
@@ -37,7 +38,7 @@ public class RequestService {
      * @param translatedText Переведенный текст
      */
     public void SaveRequest(String ip, String sourceText, String translatedText) throws SQLException {
-        RequestLog log = new RequestLog(sourceText, translatedText, ip);
+        RequestLog log = new RequestLog(ip, sourceText, translatedText);
         repository.SaveRequest(log);
     }
 

@@ -24,7 +24,8 @@ public class RequestRepository {
     private Connection conn;
 
     /**
-     * Подготовленное выражение для создания в БД записи о запросе
+     * <b>Подготовленное выражение для создания в БД записи о запросе</b>
+     * <p>Запрос: <code>INSERT INTO requests (ip_address, source_text, translated_text) VALUES (?, ?, ?)</code></p>
      */
     private PreparedStatement addStatement;
 
@@ -76,10 +77,10 @@ public class RequestRepository {
         var list = new LinkedList<RequestLog>();
         var resultSet = selectAllStatement.executeQuery("SELECT * FROM requests");
         while (resultSet.next()) {
-            var ip = resultSet.getString(1);
-            var sourceText = resultSet.getString(2);
-            var translatedText = resultSet.getString(3);
-            list.add(new RequestLog(sourceText, translatedText, ip));
+            var ip = resultSet.getString("ip_address");
+            var sourceText = resultSet.getString("source_text");
+            var translatedText = resultSet.getString("translated_text");
+            list.add(new RequestLog(ip, sourceText, translatedText));
         }
         return list;
     }
