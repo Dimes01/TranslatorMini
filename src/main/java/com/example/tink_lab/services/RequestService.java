@@ -4,8 +4,6 @@ import com.example.tink_lab.models.RequestLog;
 import com.example.tink_lab.repositories.RequestRepository;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLException;
-
 @Service
 public class RequestService {
     private final RequestRepository repository;
