@@ -1,6 +1,7 @@
 package com.example.tink_lab.controllers;
 
 import com.example.tink_lab.models.RequestDTO;
+import com.example.tink_lab.models.RequestLog;
 import com.example.tink_lab.models  .RequestTranslate;
 import com.example.tink_lab.services.RequestService;
 import com.example.tink_lab.services.TranslationService;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayDeque;
+import java.util.LinkedList;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -80,5 +82,11 @@ public class TranslateController {
         requestService.SaveRequest(request.getRemoteAddr(), response.sourceText(), response.translatedText());
 
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/get")
+    public ResponseEntity<LinkedList<RequestLog>> GetHistory() {
+        var list = requestService.GetAllRequests();
+        return ResponseEntity.ok(list);
     }
 }
