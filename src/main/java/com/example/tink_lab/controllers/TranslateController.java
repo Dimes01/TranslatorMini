@@ -14,11 +14,26 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+/**
+ * <b>Контроллер, осуществляющий обработку запросов по пути /translated</b>
+ * <p>NOTE! Обрабатывает только POST-запрос</p>
+ */
 @RestController
 @RequestMapping("/translate")
 public class TranslateController {
+    /**
+     * Сервис перевода
+     */
     private final TranslationService translationService;
+
+    /**
+     * Сервис сохранения информации о запросах
+     */
     private final RequestService requestService;
+
+    /**
+     * Сервис, обеспечивающий многопоточную обработку запроса
+     */
     private final ExecutorService executorService;
 
     public TranslateController(TranslationService translationService, RequestService requestService) {
@@ -27,6 +42,13 @@ public class TranslateController {
         this.executorService = Executors.newFixedThreadPool(10);
     }
 
+    /**
+     * Метод обрабатывает запрос, содержащий информацию для перевода, в многопоточном режиме (пул до 10 потоков) с помощью интерфейса Future.
+     * В случае ошибки выводит информацию о ней без прерывания.
+     * @param requestBody тело запроса, содержащее информацию о тексте, исходном языке и языке для перевода
+     * @param request контекст запроса
+     * @return ответ (DTO запроса), содержащий информацию об исходном и переведённом текстах
+     */
     @PostMapping
     @CrossOrigin
     public ResponseEntity<RequestDTO> Translate(@RequestBody RequestTranslate requestBody, HttpServletRequest request) {
