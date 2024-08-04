@@ -1,14 +1,12 @@
 package com.example.tink_lab.controllers;
 
+import com.example.tink_lab.models.RequestDTO;
 import com.example.tink_lab.models  .RequestTranslate;
 import com.example.tink_lab.services.RequestService;
 import com.example.tink_lab.services.TranslationService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayDeque;
@@ -31,7 +29,8 @@ public class TranslateController {
     }
 
     @PostMapping
-    public ResponseEntity<String> Translate(@RequestBody RequestTranslate requestBody, HttpServletRequest request) {
+    @CrossOrigin
+    public ResponseEntity<RequestDTO> Translate(@RequestBody RequestTranslate requestBody, HttpServletRequest request) {
         var words = requestBody.GetText().split(" ");
         var futures = new ArrayDeque<Future<String>>();
         for (var word : words) {
@@ -51,9 +50,9 @@ public class TranslateController {
             translatedText.append(" ");
         }
 
-        var result = translatedText.toString().trim();
-        requestService.SaveRequest(request.getRemoteAddr(), requestBody.GetText(), result);
+        var response = new RequestDTO(requestBody.GetText(), translatedText.toString().trim());
+        requestService.SaveRequest(request.getRemoteAddr(), response.getSourceText(), response.getTranslatedText());
 
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(response);
     }
 }
