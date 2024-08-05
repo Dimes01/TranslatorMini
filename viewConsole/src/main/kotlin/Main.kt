@@ -37,6 +37,9 @@ fun main() {
     client.close()
 }
 
+/**
+ * Выводит список возможных команд
+ */
 fun printInfo() {
     println("-h - help")
     println("-t - translate")
@@ -45,6 +48,10 @@ fun printInfo() {
     println("-r - return")
 }
 
+/**
+ * Выводит на экран список доступных языков
+ * @param client HTTP-клиент для отправки запросов
+ */
 fun getPossibleLanguages(client: HttpClient) {
     runBlocking {
         try {
@@ -58,6 +65,10 @@ fun getPossibleLanguages(client: HttpClient) {
     }
 }
 
+/**
+ * Осуществляет запрос на перевод текста, введенного пользователем в консоли, с указанием начального и конечного языка
+ * @param client HTTP-клиент для отправки запросов
+ */
 fun postTranslate(client: HttpClient) {
     var isTranslate = true
     do {
@@ -88,6 +99,10 @@ fun postTranslate(client: HttpClient) {
     } while (isTranslate)
 }
 
+/**
+ * Выводит на экран список последних переводов
+ * @param client HTTP-клиент для отправки запросов
+ */
 fun getLogs(client: HttpClient) {
     runBlocking {
         try {
