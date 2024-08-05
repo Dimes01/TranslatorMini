@@ -66,7 +66,7 @@ public class TranslationService {
         String url = String.format("%s/languages", trConf.url);
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
         List<Language> list;
-        return ParseLanguages(response.toString());
+        return ParseLanguages(response.getBody());
     }
 
     /**
