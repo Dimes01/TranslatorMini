@@ -67,6 +67,7 @@ async function fetchLogs() {
             logs.forEach(log => {
                 const logItem = document.createElement('li');
                 logItem.innerHTML = `
+                    <strong>IP:</strong> ${log.ip}<br>
                     <strong>Source Text:</strong> ${log.sourceText}<br>
                     <strong>Translated Text:</strong> ${log.translatedText}
                 `;

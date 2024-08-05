@@ -26,6 +26,7 @@
                     <option value="fr">French</option>
                 </select>
             </div>
+            <div id="loadingIndicator" class="spinner hidden"></div>
             <div>
                 <label for="targetLang">Target</label>
                 <select id="targetLang" name="targetLang">
@@ -40,7 +41,6 @@
         <button type="button" onclick="fetchLogs()">View Translation History</button>
     </form>
     <div id="result"></div>
-    <div id="loadingIndicator" class="spinner hidden"></div>
     <div id="logContainer" class="hidden">
         <h2>Translation History</h2>
         <ul id="logList"></ul>
