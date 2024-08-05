@@ -24,7 +24,6 @@ import java.util.concurrent.Future;
 
 /**
  * <b>Контроллер, осуществляющий обработку запросов по пути /translated</b>
- * <p>NOTE! Обрабатывает только POST-запрос</p>
  */
 @RestController
 @RequestMapping("/translate")
