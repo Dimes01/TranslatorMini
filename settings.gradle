@@ -1,1 +1,3 @@
 rootProject.name = 'tink-lab'
+include 'viewConsole'
+
