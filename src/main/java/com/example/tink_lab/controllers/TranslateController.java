@@ -94,13 +94,13 @@ public class TranslateController {
      * @return Список всех логов запросов
      */
     @GetMapping("/get")
-    public ResponseEntity<LinkedList<RequestLog>> GetHistory() {
-        LinkedList<RequestLog> list = null;
+    public ResponseEntity<LinkedList<RequestDTO>> GetHistory() {
+        LinkedList<RequestDTO> list = null;
         try {
             list = requestService.GetAllRequests();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            return (ResponseEntity<LinkedList<RequestLog>>) ResponseEntity.internalServerError();
+            return (ResponseEntity<LinkedList<RequestDTO>>) ResponseEntity.internalServerError();
         }
         return ResponseEntity.ok(list);
     }

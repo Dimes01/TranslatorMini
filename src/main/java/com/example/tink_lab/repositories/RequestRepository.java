@@ -1,6 +1,7 @@
 package com.example.tink_lab.repositories;
 
 import com.example.tink_lab.configs.DatabaseConfig;
+import com.example.tink_lab.models.RequestDTO;
 import com.example.tink_lab.models.RequestLog;
 import org.springframework.stereotype.Repository;
 
@@ -73,14 +74,14 @@ public class RequestRepository {
      * <p>NOTE! Пустой список возвращается либо при отсутствии данных, либо при ошибке</p>
      * @return Список всех запросов.
      */
-    public LinkedList<RequestLog> GetAllRequests() throws SQLException {
-        var list = new LinkedList<RequestLog>();
+    public LinkedList<RequestDTO> GetAllRequests() throws SQLException {
+        var list = new LinkedList<RequestDTO>();
         var resultSet = selectAllStatement.executeQuery("SELECT * FROM requests");
         while (resultSet.next()) {
             var ip = resultSet.getString("ip_address");
             var sourceText = resultSet.getString("source_text");
             var translatedText = resultSet.getString("translated_text");
-            list.add(new RequestLog(ip, sourceText, translatedText));
+            list.add(new RequestDTO(sourceText, translatedText));
         }
         return list;
     }

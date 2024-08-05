@@ -1,5 +1,6 @@
 package com.example.tink_lab.services;
 
+import com.example.tink_lab.models.RequestDTO;
 import com.example.tink_lab.models.RequestLog;
 import com.example.tink_lab.repositories.RequestRepository;
 import org.springframework.stereotype.Service;
@@ -45,7 +46,7 @@ public class RequestService {
     /**
      * @return Список всех логов запросов из репозитория
      */
-    public LinkedList<RequestLog> GetAllRequests() throws SQLException {
+    public LinkedList<RequestDTO> GetAllRequests() throws SQLException {
         return repository.GetAllRequests();
     }
 }
