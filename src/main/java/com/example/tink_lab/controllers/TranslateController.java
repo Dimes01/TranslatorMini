@@ -94,6 +94,7 @@ public class TranslateController {
      * @return Список всех логов запросов
      */
     @GetMapping("/get")
+    @CrossOrigin
     public ResponseEntity<LinkedList<RequestDTO>> GetHistory() {
         LinkedList<RequestDTO> list = null;
         try {
