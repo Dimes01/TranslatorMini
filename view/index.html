@@ -37,9 +37,14 @@
             </div>
         </div>
         <button type="button" onclick="translateText()">Translate</button>
+        <button type="button" onclick="fetchLogs()">View Translation History</button>
     </form>
     <div id="result"></div>
     <div id="loadingIndicator" class="spinner hidden"></div>
+    <div id="logContainer" class="hidden">
+        <h2>Translation History</h2>
+        <ul id="logList"></ul>
+    </div>
 </main>
 <script src="main.js"></script>
 </body>

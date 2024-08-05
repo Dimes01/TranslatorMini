@@ -78,6 +78,7 @@ button {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    margin-bottom: 10px;
 }
 
 button:hover {
@@ -116,7 +117,27 @@ button:hover {
     display: none;
 }
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+#logContainer {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+}
+
+#logContainer h2 {
+    margin-top: 0;
+}
+
+#logList {
+    list-style: none;
+    padding: 0;
+}
+
+#logList li {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
 }

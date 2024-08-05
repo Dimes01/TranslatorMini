@@ -50,3 +50,36 @@ async function translateText() {
         loadingIndicator.classList.add('hidden');
     }
 }
+
+async function fetchLogs() {
+    const loadingIndicator = document.getElementById('loadingIndicator');
+    const logContainer = document.getElementById('logContainer');
+    const logList = document.getElementById('logList');
+
+    loadingIndicator.classList.remove('hidden');
+    logList.innerHTML = '';
+
+    try {
+        const response = await fetch('http://localhost:8080/translate/get');
+
+        if (response.ok) {
+            const logs = await response.json();
+            logs.forEach(log => {
+                const logItem = document.createElement('li');
+                logItem.innerHTML = `
+                    <strong>Source Text:</strong> ${log.sourceText}<br>
+                    <strong>Translated Text:</strong> ${log.translatedText}
+                `;
+                logList.appendChild(logItem);
+            });
+            logContainer.classList.remove('hidden');
+        } else {
+            const errorText = await response.text();
+            alert(`Error: ${errorText}`);
+        }
+    } catch (error) {
+        alert(`Error: ${error.message}`);
+    } finally {
+        loadingIndicator.classList.add('hidden');
+    }
+}
